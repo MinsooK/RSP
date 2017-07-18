@@ -1,0 +1,4 @@
+/home/puloon/wip/modules/build/CMakeFiles/edit_cache.dir
+/home/puloon/wip/modules/build/CMakeFiles/rebuild_cache.dir
+/home/puloon/wip/modules/build/CMakeFiles/module2.dir
+/home/puloon/wip/modules/build/CMakeFiles/module1.dir

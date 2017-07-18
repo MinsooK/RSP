@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!-- moduletype: process, thread -->
+<!-- operationtype: periodic, sporadic, non-real -->
+
+<root>
+   <module>
+      <filename>build/examples/lifecycle/liblifecycle.so</filename>
+      <moduletype>thread</moduletype>
+      <operationtype>periodic</operationtype>
+      <period>2000000000</period>
+      <property>
+         <value name="message">yudonguk</value>
+      </property>
+   </module>
+</root>

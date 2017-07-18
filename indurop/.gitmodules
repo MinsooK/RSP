@@ -1,0 +1,6 @@
+[submodule "dependency/rapidjson"]
+	path = dependency/rapidjson
+	url = https://github.com/miloyip/rapidjson.git
+[submodule "dependency/bicomc"]
+	path = dependency/bicomc
+	url = ../../iic/bicomc.git

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!-- moduletype: process, thread -->
+<!-- operationtype: periodic, sporadic, non-real -->
+
+<root>
+   <module>
+      <filename>/home/puloon/wip/modules/build/libmodule1.so</filename>
+      <moduletype>thread</moduletype>
+      <operationtype>periodic</operationtype>
+      <period>1000000000</period>
+   </module>
+   <module>
+      <filename>/home/puloon/wip/modules/build/libmodule2.so</filename>
+      <moduletype>thread</moduletype>
+      <operationtype>periodic</opertiontype>
+      <period>1000000000</period>
+   </module>
+</root>

@@ -1,0 +1,9 @@
+
+#include <iostream>
+
+#include <monitor.h>
+
+void run()
+{
+    std::cout << test::time << std::endl;
+}

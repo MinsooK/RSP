@@ -1,0 +1,68 @@
+
+stages:
+  - prepare
+  - build
+  - test
+
+variables:
+  GIT_SUBMODULE_STRATEGY: normal
+
+#### prepare stage ####
+auto-start:
+  stage: prepare
+  only:
+    - master
+    - develop
+  script: echo ""
+
+manual-start:
+  stage: prepare
+  except:
+    - master
+    - develop
+  when: manual
+  allow_failure: false
+  script: echo ""
+
+#### build stage ####
+ubuntu-16.04:
+  # build-essential, cmake and python3 are built in iiclab/ubuntu.
+  # https://hub.docker.com/r/iiclab/ubuntu/
+  image: iiclab/ubuntu:16.04-indurop
+  stage: build
+  tags:
+    - docker, ubuntu
+  artifacts:
+    paths:
+      - install/
+
+  before_script:
+    # build xenomai api
+    - curl -OLs https://git.kangwon.ac.kr/iic/xenomai-archive/raw/master/archive/xenomai-3.0.3.tar.bz2
+    - tar -xf xenomai-3.0.3.tar.bz2
+    - cd xenomai-3.0.3
+    - ./scripts/bootstrap
+    - ./configure --enable-smp --enable-pshared --prefix=`pwd`/../install/xenomai
+    - make install
+    - cd ..
+
+  script:
+    - mkdir build
+    - cd build
+    - cmake .. -DCMAKE_BUILD_TYPE=Debug -DCMAKE_INSTALL_PREFIX=../install -DXenomai_ROOT=`pwd`/../install/xenomai
+    - cmake --build . --config Debug --target install
+    - cmake .. -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=../install -DXenomai_ROOT=`pwd`/../install/xenomai
+    - cmake --build . --config Release --target install
+    - cd ..
+
+  after_script:
+    - rm install/xenomai -r
+
+#### test stage ####
+ubuntu-16.04:test:
+  image: iiclab/ubuntu:16.04-indurop
+  stage: test
+  dependencies:
+    - ubuntu-16.04
+  script:
+    - echo "no test"

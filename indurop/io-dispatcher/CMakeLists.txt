@@ -1,0 +1,21 @@
+
+cmake_minimum_required(VERSION 3.1)
+
+project(io-dispatcher)
+
+file(GLOB_RECURSE sources src/* include/*)
+add_executable(${PROJECT_NAME} ${sources})
+target_include_directories(${PROJECT_NAME}
+	PRIVATE include
+)
+
+set_target_properties(${PROJECT_NAME} PROPERTIES DEBUG_POSTFIX ${CMAKE_DEBUG_POSTFIX})
+
+# install
+install(TARGETS ${PROJECT_NAME}
+	EXPORT ${TARGET_EXPORT_NAME}
+	RUNTIME DESTINATION ${RUNTIME_INSTALL_DIR}
+	LIBRARY DESTINATION ${LIBRARY_INSTALL_DIR}
+	ARCHIVE DESTINATION ${ARCHIVE_INSTALL_DIR}
+	INCLUDES DESTINATION ${INCLUDE_INSTALL_DIR}
+)

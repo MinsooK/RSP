@@ -1,0 +1,51 @@
+﻿
+cmake_minimum_required(VERSION 3.1)
+
+project(middleware)
+
+find_package(BiCOMC CONFIG REQUIRED)
+find_package(RapidJSON CONFIG REQUIRED)
+find_package(Xenomai REQUIRED)
+
+hunter_add_package(RapidXML)
+find_package(RapidXML 1.13 CONFIG REQUIRED)
+
+file(GLOB_RECURSE sources src/* include/*)
+add_executable(${PROJECT_NAME} ${sources})
+target_compile_definitions(${PROJECT_NAME}
+	PRIVATE
+		${Xenomai_DEFINITIONS}
+		-DRAPIDJSON_HAS_STDSTRING
+)
+target_include_directories(${PROJECT_NAME}
+	PRIVATE
+		include
+		${RAPIDJSON_INCLUDE_DIRS}
+		${Xenomai_INCLUDE_DIRS}
+)
+target_link_libraries(${PROJECT_NAME}
+	PRIVATE
+		library
+		BiCOMC::BiCOMC
+		RapidXML::RapidXML
+		${Xenomai_LIBRARIES}
+		dl
+)
+
+set_target_properties(${PROJECT_NAME} PROPERTIES DEBUG_POSTFIX ${CMAKE_DEBUG_POSTFIX})
+
+# install
+install(TARGETS ${PROJECT_NAME}
+	EXPORT ${TARGET_EXPORT_NAME}
+	RUNTIME DESTINATION "${RUNTIME_INSTALL_DIR}"
+	LIBRARY DESTINATION "${LIBRARY_INSTALL_DIR}"
+	ARCHIVE DESTINATION "${ARCHIVE_INSTALL_DIR}"
+	INCLUDES DESTINATION "${INCLUDE_INSTALL_DIR}"
+)
+install(DIRECTORY
+	DESTINATION "${VARIABLE_INSTALL_DIR}"
+	DIRECTORY_PERMISSIONS
+		OWNER_READ OWNER_WRITE OWNER_EXECUTE
+		GROUP_READ GROUP_WRITE GROUP_EXECUTE
+		WORLD_READ WORLD_WRITE WORLD_EXECUTE
+)

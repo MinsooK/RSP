@@ -1,0 +1,4 @@
+﻿
+namespace test;
+
+int64_t time;

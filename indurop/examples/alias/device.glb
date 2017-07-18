@@ -1,0 +1,9 @@
+﻿
+namespace test;
+
+struct {
+	int state;
+	float data[10];
+} context;
+
+alias(context.state) state;

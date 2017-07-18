@@ -1,0 +1,7 @@
+
+#include <monitor.h>
+
+void run()
+{
+    test::time = test::time + 1;
+}
